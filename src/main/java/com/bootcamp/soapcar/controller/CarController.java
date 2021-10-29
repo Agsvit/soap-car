@@ -16,11 +16,13 @@ public class CarController {
     public CarController(CarService carService) {
         this.carService = carService;
     }
+
+
     @PayloadRoot(namespace = "http://bootcamp.com/", localPart = "getCarRequest")
     @ResponsePayload
     public GetCarResponse getCarRequest(@RequestPayload GetCarRequest request) {
         GetCarResponse response = new GetCarResponse();
-        response.setCar((carService.getCars(request.getPlate())));
+        response.setCar(carService.findCarByName(request.getPlate()));
         return response;
     }
 

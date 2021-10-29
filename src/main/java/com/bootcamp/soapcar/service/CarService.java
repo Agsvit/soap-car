@@ -1,6 +1,7 @@
 package com.bootcamp.soapcar.service;
 
 import com.bootcamp.soapcar.model.Car;
+import com.bootcamp.soapcar.repository.CarRepository;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
@@ -10,9 +11,15 @@ import java.util.Map;
 @Service
 public class CarService {
 
+    private final CarRepository carRepository;
+
     private static final Map<Integer, Car> cars = new HashMap<>();
 
-    @PostConstruct
+    public CarService(CarRepository carRepository) {
+        this.carRepository = carRepository;
+    }
+
+  /*  @PostConstruct
     public void initialize() {
         Car car1 = new Car();
         car1.setPlate(1);
@@ -36,5 +43,9 @@ public class CarService {
 
     public Car getCars(int plate) {
         return cars.get(plate);
+    }
+*/
+    public Car findCarByName(int plate) {
+        return carRepository.findByPlate(plate);
     }
 }
